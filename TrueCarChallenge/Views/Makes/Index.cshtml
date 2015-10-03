@@ -1,0 +1,33 @@
+﻿@model TrueCarChallenge.Models.MakesViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Vehicle Makes</h2>
+<p>
+    @Html.ActionLink("Create A Make", "Create")
+</p>
+<table class="table">
+    @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+    {
+    <tr>
+        <th colspan="2">
+            <div class="alert-danger">@Model.ErrorMessage</div>
+        </th>
+    </tr>
+    }
+    @foreach (var item in Model.Makes)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+</table>

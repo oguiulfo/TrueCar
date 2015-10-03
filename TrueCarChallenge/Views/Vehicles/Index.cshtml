@@ -1,0 +1,39 @@
+﻿@model IEnumerable<TrueCarChallenge.Models.VehiclesViewModel>
+@{
+    ViewBag.Title = "Vehicle Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Vehicle Report</h2>
+<table class="table">
+    <tr>
+        <th>
+            Make
+        </th>
+        <th>
+            Min MPG
+        </th>
+        <th>
+            Max MPG
+        </th>
+        <th>
+            Average MPG
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Make)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinMPG)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxMPG)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AvgMPG)
+            </td>
+        </tr>
+    }
+</table>

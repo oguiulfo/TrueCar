@@ -1,0 +1,63 @@
+﻿@model TrueCarChallenge.Models.HomeViewModel
+@{
+    ViewBag.Title = "Oscar's Vehicle Tracker";
+}
+<div class="jumbotron">
+    <h1>Oscar's Vehicle Tracker</h1>
+    <p>Built using <a href="http://www.asp.net/mvc/mvc5">MVC 5</a>, <a href="https://entityframework.codeplex.com/">EF 6 Code-First</a> and <a href="http://www.asp.net/identity">ASP.NET Identity</a></p>
+    <p>If you do not see a list of your vehicles below, please register and come back to this page to add some!</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        @if (!string.IsNullOrWhiteSpace(User.Identity.Name))
+        {
+            using (Html.BeginForm("Edit", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                <table class="table">
+                    <tr>
+                        <td colspan="2">
+                            Vehicles for @User.Identity.Name
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Make
+                        </td>
+                        <td>
+                            MPG
+                        </td>
+                    </tr>
+                    @for (int i = 0; i < Model.MyVehicles.Count(); i++)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => m.MyVehicles[i].Make.Name)
+                            </td>
+                            <td>
+                                @Html.EditorFor(m => m.MyVehicles[i].MPG)
+                                @Html.HiddenFor(m => m.MyVehicles[i].ID)
+                            </td>
+                            <td><input type="submit" value="Update MPG" class="btn btn-default" /></td>
+                            <td>
+                                @Html.ActionLink("Remove", "Delete", new { ID = Model.MyVehicles[i].ID }, new { @class = "btn btn-default" })
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            <table class="table">
+                @using (Html.BeginForm("Add", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    <tr>
+                        <td>
+                            @Html.DropDownListFor(model => model.SelectedVehicle, Model.AllMakes)
+                            @Html.EditorFor(m => m.SelectedVehicleMPG)
+                        </td>
+                        <td><input type="submit" value="Add Vehicle" class="btn btn-default" /></td>
+                    </tr>
+                }
+            </table>
+        }
+    </div>
+</div>
